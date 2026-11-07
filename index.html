@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Diwali Dr. Arpita 🪔</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at center,
+    #54210c, #230909, #050202);
+    color: #fff4cf;
+    font-family: Georgia, serif;
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* STAR BACKGROUND */
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    color: gold;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .2; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.4); }
+}
+
+/* FIREWORK CANVAS */
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* MAIN */
+.container {
+    position: relative;
+    z-index: 2;
+    padding: 40px 15px;
+}
+
+.diya {
+    font-size: 75px;
+    margin: 20px;
+    animation: diyaGlow 1.5s infinite alternate;
+}
+
+@keyframes diyaGlow {
+    from { filter: drop-shadow(0 0 5px orange); }
+    to { filter: drop-shadow(0 0 30px gold); }
+}
+
+h1 {
+    font-size: clamp(35px, 8vw, 65px);
+    color: #ffd76a;
+    text-shadow: 0 0 15px orange, 0 0 35px red;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px gold; }
+    to { text-shadow: 0 0 30px orange, 0 0 50px red; }
+}
+
+.subtitle {
+    margin-top: 18px;
+    font-size: 19px;
+    color: #ffe8a6;
+    line-height: 1.7;
+}
+
+/* MESSAGE */
+.message {
+    max-width: 700px;
+    margin: 35px auto;
+    padding: 30px 22px;
+    background: rgba(255,190,60,.09);
+    border: 2px solid #e8b64c;
+    border-radius: 22px;
+    box-shadow: 0 0 30px #b86b15;
+    line-height: 1.9;
+    font-size: 18px;
+}
+
+.message h2 {
+    color: #ffda76;
+    margin-bottom: 20px;
+}
+
+.message p {
+    margin-bottom: 15px;
+}
+
+/* DECORATIONS */
+.decorations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px,1fr));
+    gap: 18px;
+    max-width: 900px;
+    margin: 35px auto;
+}
+
+.item {
+    padding: 22px 10px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid #d69a34;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(255,180,40,.25);
+    transition: .3s;
+}
+
+.item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px orange;
+}
+
+.item span {
+    font-size: 43px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.chakri {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.gift {
+    animation: bounce 1.5s infinite alternate;
+}
+
+@keyframes bounce {
+    to { transform: translateY(-10px); }
+}
+
+/* LANTERNS */
+.lantern {
+    position: fixed;
+    bottom: -100px;
+    font-size: 40px;
+    animation: fly 12s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0) rotate(-5deg);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    100% {
+        transform: translateY(-120vh) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+/* BUTTON */
+button {
+    padding: 16px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg,#ff9e00,#ffdf77);
+    color: #531c00;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px orange;
+    margin: 15px;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+/* SURPRISE */
+.hidden-message {
+    display: none;
+    max-width: 650px;
+    margin: 25px auto;
+    padding: 30px 22px;
+    border: 2px solid gold;
+    border-radius: 20px;
+    background: linear-gradient(145deg,#64230d,#280a0a);
+    box-shadow: 0 0 35px orange;
+    font-size: 19px;
+    line-height: 1.9;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: scale(.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+footer {
+    margin: 45px 10px 20px;
+    color: #ffcf70;
+    line-height: 2;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <div class="diya">🪔</div>
+
+    <h1>Happy Diwali,<br>Dr. Arpita! ✨</h1>
+
+    <p class="subtitle">
+        A festival of lights, happiness, love and beautiful memories.
+        <br>
+        A little festival surprise, specially made for you! ❤️
+    </p>
+
+    <!-- PERSONAL MESSAGE -->
+
+    <div class="message">
+
+        <h2>✨ Dear Dr. Arpita ✨</h2>
+
+        <p>
+        May this beautiful festival of lights bring endless
+        happiness, peace and positivity into your life.
+        </p>
+
+        <p>
+        May every diya illuminate your dreams,
+        every sparkle bring a reason to smile,
+        and every new morning bring you closer
+        to everything you wish for.
+        </p>
+
+        <p>
+        May your life shine brighter than a thousand diyas,
+        your dreams fly higher than colourful rockets,
+        and your happiness sparkle like the brightest fireworks.
+        </p>
+
+        <p>
+        May Goddess Lakshmi bless you with happiness,
+        success, good health and endless opportunities.
+        </p>
+
+        <p>
+        No matter how challenging the journey gets,
+        never stop believing in yourself.
+        Keep shining and keep being the wonderful person you are.
+        </p>
+
+        <p>
+        Wishing you a Diwali filled with countless beautiful
+        moments and unforgettable memories.
+        </p>
+
+        <br>
+
+        <h2>🪔 Wishing You A Magical Diwali! ❤️</h2>
+
+    </div>
+
+    <!-- FIREWORKS SECTION -->
+
+    <h2 style="color:#ffd66b; font-size:30px; margin:35px 0 10px;">
+        🎆 The Grand Festival Of Lights 🎆
+    </h2>
+
+    <p style="color:#ffe6a0;">
+        Let the sky sparkle with colours and happiness!
+    </p>
+
+    <div class="decorations">
+
+        <div class="item">
+            <span>✨</span>
+            Sparklers
+        </div>
+
+        <div class="item">
+            <span class="chakri">🌀</span>
+            Ground Chakkars
+        </div>
+
+        <div class="item">
+            <span>🌋</span>
+            Flower Pots
+        </div>
+
+        <div class="item">
+            <span>⭐</span>
+            Twinkling Stars
+        </div>
+
+        <div class="item">
+            <span>💥</span>
+            Cartoon Bomb Effects
+        </div>
+
+        <div class="item">
+            <span>🚀</span>
+            Sky Rockets
+        </div>
+
+        <div class="item">
+            <span>🎇</span>
+            Bijili Crackers
+        </div>
+
+        <div class="item">
+            <span>🎆</span>
+            Aerial Multicolour Shots
+        </div>
+
+        <div class="item">
+            <span>🏮</span>
+            Sky Lanterns
+        </div>
+
+        <div class="item">
+            <span class="gift">🎁</span>
+            Diwali Gift Boxes
+        </div>
+
+    </div>
+
+    <!-- GIFT BUTTON -->
+
+    <h2 style="color:#ffdb79; margin-top:40px;">
+        🎁 Something Special For You 🎁
+    </h2>
+
+    <p style="margin:15px;">
+        There is one little surprise waiting for you...
+    </p>
+
+    <button onclick="openGift()">
+        💝 Open Your Special Gift 💝
+    </button>
+
+    <!-- GIFT REVEAL -->
+
+    <div class="hidden-message" id="giftMessage">
+
+        <h2>💝 A Little Surprise For Dr. Arpita 💝</h2>
+
+        <p>
+        If I could gift you one thing this Diwali,
+        it would be a year full of happiness,
+        confidence, beautiful opportunities
+        and reasons to smile.
+        </p>
+
+        <p>
+        This little gift carries a simple wish:
+        May the coming days bring you more happiness
+        than you can imagine and more reasons to smile
+        than you can count.
+        </p>
+
+        <p>
+        May all your hard work turn into success
+        and may every dream find its way to reality.
+        </p>
+
+        <p>
+        Stay happy, stay blessed and keep shining! ✨
+        </p>
+
+        <br>
+
+        <h2>🪔 Happy Diwali, Dr. Arpita! ❤️</h2>
+
+        <p>With warm Diwali wishes.</p>
+
+    </div>
+
+    <footer>
+
+        🪔 शुभ दीपावली 🪔
+
+        <br>
+
+        May your world always be filled with light,
+        laughter and happiness.
+
+        <br><br>
+
+        ✨ Made with warm wishes and festive sparkle ❤️ ✨
+
+    </footer>
+
+</div>
+
+<script>
+
+// CREATE TWINKLING STARS
+
+const starBox = document.getElementById("stars");
+
+for(let i=0; i<100; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+    star.innerHTML = "✦";
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+
+    star.style.animationDelay = Math.random()*3 + "s";
+    star.style.fontSize = (8+Math.random()*15)+"px";
+
+    starBox.appendChild(star);
+}
+
+
+// FLOATING SKY LANTERNS
+
+function createLantern() {
+
+    const lantern = document.createElement("div");
+
+    lantern.className = "lantern";
+    lantern.innerHTML = "🏮";
+
+    lantern.style.left = Math.random()*90 + "%";
+
+    lantern.style.animationDuration =
+    (9+Math.random()*7)+"s";
+
+    document.body.appendChild(lantern);
+
+    setTimeout(() => lantern.remove(),16000);
+}
+
+setInterval(createLantern,1800);
+
+
+// FIREWORKS ANIMATION
+
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+resize();
+
+window.addEventListener("resize",resize);
+
+let particles = [];
+
+
+// CREATE COLOURFUL FIREWORKS
+
+function createFirework(x,y) {
+
+    const colors = [
+        "#ffcc00",
+        "#ff3366",
+        "#00ffff",
+        "#ff6600",
+        "#ffffff",
+        "#cc66ff",
+        "#66ff99",
+        "#ff1493"
+    ];
+
+    const color =
+    colors[Math.floor(Math.random()*colors.length)];
+
+    for(let i=0; i<75; i++) {
+
+        const angle = Math.PI*2*i/75;
+        const speed = Math.random()*4+1;
+
+        particles.push({
+
+            x:x,
+            y:y,
+
+            vx:Math.cos(angle)*speed,
+            vy:Math.sin(angle)*speed,
+
+            life:100,
+            color:color
+
+        });
+
+    }
+
+}
+
+
+// ANIMATE FIREWORK PARTICLES
+
+function animate() {
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach((p,index) => {
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.vy += 0.025;
+
+        p.life--;
+
+        ctx.globalAlpha = p.life/100;
+        ctx.fillStyle = p.color;
+
+        ctx.beginPath();
+
+        ctx.arc(p.x,p.y,2.5,0,Math.PI*2);
+
+        ctx.fill();
+
+        if(p.life<=0) {
+            particles.splice(index,1);
+        }
+
+    });
+
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+
+// AUTOMATIC FIREWORKS
+
+setInterval(() => {
+
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height*.55;
+
+    createFirework(x,y);
+
+},900);
+
+
+// SPECIAL GIFT OPENING
+
+function openGift() {
+
+    const gift =
+    document.getElementById("giftMessage");
+
+    gift.style.display = "block";
+
+    for(let i=0; i<8; i++) {
+
+        setTimeout(() => {
+
+            createFirework(
+                Math.random()*canvas.width,
+                Math.random()*canvas.height*.6
+            );
+
+        },i*300);
+
+    }
+
+    gift.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
